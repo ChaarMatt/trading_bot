@@ -1,0 +1,17 @@
+# Environment configuration
+api:
+  polygon_key: ${POLYGON_API_KEY}
+  news_key: ${NEWS_API_KEY}
+
+database:
+  url: ${DATABASE_URL}
+  timeout: 30
+
+logging:
+  level: INFO
+  file: logs/trading_bot.log
+  format: '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+
+error_handling:
+  max_retries: 3
+  retry_delay: 5

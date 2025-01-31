@@ -1,0 +1,17 @@
+# Database configuration
+connection:
+  dialect: postgresql
+  driver: psycopg2
+  username: trading_bot
+  password: ${DATABASE_PASSWORD}
+  host: localhost
+  port: 5432
+  database: trading_bot_db
+
+schema:
+  trades_table: trades
+  positions_table: positions
+  performance_table: performance
+
+migrations:
+  directory: migrations/
