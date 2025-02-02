@@ -1,4 +1,11 @@
+import os
 import pandas as pd
+
+# Ensure the correct import path based on your project structure
+try:
+    from src.data.gather_market_data import fetch_market_data
+except ModuleNotFoundError:
+    print("⚠️ WARNING: 'src.data.gather_market_data' not found. Check the import path.")
 
 def calculate_rsi(data, period=14):
     """Calculate Relative Strength Index (RSI) for the given data."""
@@ -31,15 +38,17 @@ def calculate_sma(data, period=20):
     return data['Close'].rolling(window=period).mean()
 
 def main():
-    # Example usage
-    from src.data.gather_market_data import fetch_market_data
-    import pandas as pd
-    
     ticker = "BTCUSD"
     start_date = "2020-01-01"
     end_date = "2024-12-31"
-    df = fetch_market_data(ticker, start_date, end_date)
     
+    # Fetch market data
+    df = fetch_market_data(ticker, start_date, end_date) if 'fetch_market_data' in globals() else None
+    
+    # Validate fetched data
+    if df is None or df.empty:
+        raise ValueError("❌ Fetched market data is empty. Check API response.")
+
     # Calculate indicators
     df['RSI'] = calculate_rsi(df)
     macd, signal = calculate_macd(df)
@@ -47,8 +56,13 @@ def main():
     df['Signal'] = signal
     df['SMA'] = calculate_sma(df)
     
+    # Ensure processed data directory exists
+    os.makedirs("data/processed", exist_ok=True)
+    
     # Save processed data
-    df.to_csv('data/processed/btcusd_technical_indicators.csv', index=True)
+    output_path = "data/processed/btcusd_technical_indicators.csv"
+    df.to_csv(output_path, index=True)
+    print(f"✅ Data saved successfully to {output_path}")
 
 if __name__ == "__main__":
     main()
