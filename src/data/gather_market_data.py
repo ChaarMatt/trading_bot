@@ -67,7 +67,7 @@ def fetch_market_data(symbols: list, start_date: str, end_date: str, api_key: st
 
 if __name__ == "__main__":
     # Example usage
-    api_key = "RfuJFUgdUgBXbRRAlQsTZG2ykkaFcv6q"
+    api_key = "API_Key_here"
     symbols = ["AAPL"]
     start_date = "2023-01-01"
     end_date = "2024-12-31"

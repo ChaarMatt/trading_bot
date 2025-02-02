@@ -2,8 +2,8 @@
 connection:
   dialect: postgresql
   driver: psycopg2
-  username: trading_bot
-  password: ${DATABASE_PASSWORD}
+  username: DB_User_Here
+  password: DB_Password_Here
   host: localhost
   port: 5432
   database: trading_bot_db
